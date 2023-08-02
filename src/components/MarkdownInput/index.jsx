@@ -17,6 +17,8 @@ function MarkDownInput({ markdownValue, onChange }) {
             const post = {title, text};
             localStorage.setItem(title, JSON.stringify(post));
             setValues({title: '', text: ''});
+            window.location.reload();
+            console.log('Save Complete')
         } else {
             console.error('le titre et le text ne doivent pas etre vides.')
         }
@@ -24,6 +26,7 @@ function MarkDownInput({ markdownValue, onChange }) {
 
   return (
     <div>
+        <h1>Create Note</h1>
         <NoteDisplay  title={values.title} text={values.text}/>
         <div className='MarkDownInput'>
             <input 
@@ -32,7 +35,8 @@ function MarkDownInput({ markdownValue, onChange }) {
                 placeholder="Enter your title here..."
                 value={values.title}
                 onChange={getHandler('title')}
-
+                maxLength={35}
+                required
             />
             <textarea
                 className='textarea'
@@ -40,9 +44,11 @@ function MarkDownInput({ markdownValue, onChange }) {
                 onChange={getHandler('text')}
                 placeholder="Enter your Markdown text here..."
                 rows={12}
+                maxLength={500}
+                required
             />
         </div>
-        <button className='button' onClick={savePost}>Save Post</button>
+        <button className='button buttonSave' onClick={savePost}>Save Post</button>
     </div>
   );
 }
